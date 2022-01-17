@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: config-client-test
+  cloud:
+    config:
+#      env: default # optional
+      label: master # optional
+      name: config-client-test
+      profile: dev
+      uri: http://localhost:8888/myconfig # optional
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

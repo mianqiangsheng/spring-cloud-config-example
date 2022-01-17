@@ -1,0 +1,8 @@
+# Config data exposed by config server
+
+config-client-test-dev:
+  info:
+    foo: lizhen3
+    someList: [10, 11, 12]
+
+loaded: config-client-test-dev

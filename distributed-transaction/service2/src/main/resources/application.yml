@@ -1,0 +1,64 @@
+server:
+  port: 8902
+# enable all actuator endpoints for testing (review this for real deployments)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  #  config:
+#    use-legacy-processing: true
+  application:
+    name: service2
+  cloud:
+    nacos:
+      # nacos的配置信息不能写在yml文件中，因为读取nacos上的配置的逻辑在Bootstrap Context中。官网也写道：This configuration must be in the bootstrap.properties file.
+#      config:
+#        server-addr: localhost:8848
+#        file-extension: properties
+#        name: nacos-provider-config
+#        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+#        group: DEFAULT_GROUP
+      discovery:
+        server-addr: localhost:8848
+        service: service2 # 默认使用spring.application.name
+        network-interface: 10.10.100.66 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 10.10.140.17 # Highest priority
+        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+
+seata:
+  enabled: true
+  application-id: service2
+  tx-service-group: my_test_tx_group
+  #一定要是false
+  enable-auto-data-source-proxy: false
+#  service:
+#    vgroup-mapping:
+#      #key与上面的tx-service-group的值对应
+#      my_test_tx_group: default
+#    grouplist:
+#      #seata-server地址仅file注册中心需要
+#      default: 10.10.140.221:8091
+#  config:
+#    type: file
+#  registry:
+#    type: file
+  config:
+    type: Nacos
+    nacos:
+      server-addr: localhost:8848
+      group: "SEATA_GROUP"
+      namespace: "fadb7b5f-e4fd-4beb-a329-0cfeedbf852a"
+      username:
+      password:
+  registry:
+    type: Nacos
+    nacos:
+      server-addr: localhost:8848
+      group: "SEATA_GROUP"
+      namespace: "fadb7b5f-e4fd-4beb-a329-0cfeedbf852a"
+      username:
+      password:

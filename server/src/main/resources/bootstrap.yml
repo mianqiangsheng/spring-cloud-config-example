@@ -1,0 +1,86 @@
+#spring:
+#  application:
+#    name: config-server
+#  cloud:
+#    config:
+#      server:
+#        # 指定作为config server的服务是不是自己本身的配置信息也从配置源读取加载
+#        bootstrap: true
+#        git:
+#          # 连接远程git仓库
+##          uri: https://github.com/ericdahl/spring-cloud-config-example
+#          # 连接本地git仓库
+#          # (1) 创建一个目录(仓库名字): ~/practice_c
+#          # (2) 将目录变成本地仓库: ~/practice_c # git init
+#          # (3) 增加文件: touch readme.txt; git add readme.txt; git commit -m "add readme.txt"
+#          # (4) 创建分支: git checkout -b develop; git branch -a;
+#          # (5) 切回到master: git checkout master
+#          uri: file:/D:\work_projects\spring-cloud-config-example\git-server-config
+#
+#          # Search in the 'server-config' directory of the repo. This generally wouldn't
+#          # be used because the configs would be in the root directory, but because
+#          # this example repo is hosting both the code and the configs, we're
+#          # isolating the configuration files into their own directory.
+##          searchPaths: server-config
+#
+#          # With VCS-based backends (git, svn), files are checked out or cloned to the local filesystem.
+#          # This can lead to unexpected behavior, such as missing properties. To avoid this problem,
+#          # change the directory that Config Server uses by setting spring.cloud.config.server.git.basedir or spring.cloud.config.server.svn.basedir to a directory that does not reside in the system temp structure.
+#          basedir: D:\work_projects\spring-cloud-config-example\tmp-server-config
+#
+#          # Spring Cloud Config服务器克隆远程git存储库，如果某种原因本地副本变脏（例如，由操作系统进程更改文件夹内容），
+#          # 则Spring Cloud Config服务器不会从远程存储库更新本地副本。
+#          # 要解决这个问题，有一个force-pull属性 将使Spring Cloud Config Server当本地副本是脏的时 强制从远程存储库中拉取。
+#          force-pull: true
+#
+#          # 配置服务器启动时，会从git库中拉取分支（由label指定），这些分支会一直保留直到服务器重启。所以会出现远程git库删除了分支，但本地还存在的情况。
+#          # 为了使用本地的仓库分支与远程服务器一致，deleteUntrackedBranches属性需要被设置。它会使配置中心删除本地多余的分支。
+#          delete-untracked-branches: true
+#
+#        # 本地文件系统存放配置文件，配合active=native使用
+#        native:
+#          searchLocations: file:/D:\work_projects\spring-cloud-config-example\native-server-config
+#        # 指定config server读取配置信息http访问地址的前缀
+#        prefix: /myconfig
+#      fail-fast: true
+#      # { application }, which maps to spring.application.name on the client side.指定配置文件名字
+#      # {profile}, which maps to spring.profiles.active on the client (comma-separated list).指定配置文件profile
+#      # {label}, which is a server side feature labelling a "versioned" set of config files.指定git仓库分支
+#      name:
+#      profile:
+#      label:
+#  profiles:
+#    active: native,dev
+
+#In some scenarios, you may wish to pull configuration data from multiple environment repositories. To do so, you can enable the composite profile in your configuration server’s application properties or YAML file.
+#Using this configuration, precedence is determined by the order in which repositories are listed under the composite key.
+#If you want to pull configuration data only from repositories that are each of distinct types, you can enable the corresponding profiles, rather than the composite profile, in your configuration server’s application properties or YAML file.
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        vault:
+          host: 10.10.100.221
+          port: 8200
+          token: s.GOkTKNvI3IdQPD6nxjddgRSI
+        composite:
+          -
+            type: native
+            search-locations: file:/D:\work_projects\spring-cloud-config-example\native-server-config
+          -
+            type: git
+            uri: file:/D:\work_projects\spring-cloud-config-example\git-server-config
+          -
+            type: vault
+            host: 10.10.100.221
+            port: 8200
+#            kvVersion: 2
+            token: s.GOkTKNvI3IdQPD6nxjddgRSI
+        bootstrap: true
+        prefix: /myconfig
+        fail-on-composite-error: true
+  profiles:
+    active: composite,dev
+

@@ -1,0 +1,30 @@
+server:
+  port: 8881
+# enable all actuator endpoints for testing (review this for real deployments)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  #  config:
+#    use-legacy-processing: true
+  application:
+    name: nacos-provider-config
+  cloud:
+    nacos:
+      # nacos的配置信息不能写在yml文件中，因为读取nacos上的配置的逻辑在Bootstrap Context中。官网也写道：This configuration must be in the bootstrap.properties file.
+#      config:
+#        server-addr: localhost:8848
+#        file-extension: properties
+#        name: nacos-provider-config
+#        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+#        group: DEFAULT_GROUP
+      discovery:
+        server-addr: localhost:8848
+        service: nacos-provider-config # 默认使用spring.application.name
+        network-interface: 10.10.100.66 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 10.10.100.66 # Highest priority
+        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b

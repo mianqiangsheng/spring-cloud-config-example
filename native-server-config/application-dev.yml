@@ -1,0 +1,8 @@
+# Config data exposed by config server
+
+application-dev:
+  info:
+    foo: lizhen1
+    someList: [4, 5, 6]
+
+loaded: application-dev

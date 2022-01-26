@@ -26,7 +26,7 @@ public class Product {
     }
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     /**
      * 价格
      */
@@ -39,11 +39,11 @@ public class Product {
     private Date lastUpdateTime;
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

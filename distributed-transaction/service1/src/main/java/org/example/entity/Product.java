@@ -31,7 +31,7 @@ public class Product implements Serializable {
     private static final long serialVersionUID = -2569723989180564425L;
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Long id;
     /**
      * 价格
      */
@@ -44,11 +44,11 @@ public class Product implements Serializable {
     private Date lastUpdateTime;
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

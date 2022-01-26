@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "service3")
+@FeignClient(value = "service3", url = "http://127.0.0.1:8903")
 public interface Service3 {
 
     /**

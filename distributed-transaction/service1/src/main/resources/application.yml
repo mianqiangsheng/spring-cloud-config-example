@@ -25,14 +25,14 @@ spring:
       discovery:
         server-addr: localhost:8848
         service: service1 # 默认使用spring.application.name
-        network-interface: 10.10.100.66 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
-        ip: 10.10.140.17 # Highest priority
-        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+        network-interface: 10.1.40.31 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 192.168.71.1 # Highest priority
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
 
 seata:
   enabled: true
   application-id: service1
-  tx-service-group: my_test_tx_group
+  tx-service-group: default_tx_group
   #一定要是false
   enable-auto-data-source-proxy: false
 #  service:
@@ -51,7 +51,7 @@ seata:
     nacos:
       server-addr: localhost:8848
       group: "SEATA_GROUP"
-      namespace: "fadb7b5f-e4fd-4beb-a329-0cfeedbf852a"
+      namespace: "036bfbd5-e6af-495a-b550-97a4e10fb0ff"
       username:
       password:
   registry:
@@ -59,7 +59,7 @@ seata:
     nacos:
       server-addr: localhost:8848
       group: "SEATA_GROUP"
-      namespace: "fadb7b5f-e4fd-4beb-a329-0cfeedbf852a"
+      namespace: "036bfbd5-e6af-495a-b550-97a4e10fb0ff"
       username:
       password:
       application: "seata-server"

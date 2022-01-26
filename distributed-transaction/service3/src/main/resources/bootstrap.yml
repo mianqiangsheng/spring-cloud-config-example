@@ -5,6 +5,6 @@ spring:
         server-addr: localhost:8848
         file-extension: yaml
         name: nacos-provider-config
-        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
         group: DEFAULT_GROUP
         refresh-enabled: true

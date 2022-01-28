@@ -51,7 +51,7 @@ native-server-config:提供作为配置中心的本地配置存储目录。
 git-server-config:提供作为配置中心的git配置存储目录。
 client[spring-cloud-config-example-client]：作为微服务读取配置中心服务提供的配置信息，注意不需要注册中心来发现，直接通过ip端口前缀获取。
 
-nacos-provider-config：利用nacos作为配置中心和注册中心，学习使用多数据源@DS
+nacos-provider-config：利用nacos作为配置中心和注册中心，学习使用多数据源@DS；Spring Boot配置文件信息加密；
 nacos-consumer：从nacos获取服务，并使用原生方法RestTemplate调用nacos-provider-config的接口
 
 distributed-transaction：nacos微服务+seata分布时事务，

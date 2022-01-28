@@ -5,11 +5,13 @@ import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
+import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,18 @@ public class NacosProviderConfigApplication {
 
     public static void main(String[] args) throws NacosException, InterruptedException {
         applicationContext = SpringApplication.run(NacosProviderConfigApplication.class, args);
+
+        Environment environment = applicationContext.getBean(Environment.class);
+        StringEncryptor codeSheepEncryptorBean = applicationContext.getBean(StringEncryptor.class);
+
+        // 首先获取配置文件里的原始明文信息
+        String password = environment.getProperty("password");
+
+        // 加密
+        String encryptedPassword = codeSheepEncryptorBean.encrypt(password);
+
+        System.out.println("password明文：" + password);
+        System.out.println("password密文：" + encryptedPassword);
 
         /**
          * http://localhost:8881/actuator/nacosconfig

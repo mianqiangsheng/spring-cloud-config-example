@@ -25,6 +25,28 @@ spring:
       discovery:
         server-addr: localhost:8848
         service: nacos-provider-config # 默认使用spring.application.name
-        network-interface: 10.10.100.66 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
-        ip: 10.10.100.66 # Highest priority
-        namespace: 84824bfd-2abb-4731-b281-b8063b16fa3b
+        network-interface: 10.1.40.31 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 192.168.71.1 # Highest priority
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
+
+
+jasypt:
+  encryptor:
+    password: CodeSheep
+#    bean: codeSheepEncryptorBean
+#    property:
+#      prefix: CodeSheep(
+#      suffix: )
+
+
+# 明文密码：111111
+# jasypt.encryptor.password配置密钥
+# 由于密钥配置在配置文件中，还是有风险。所以可以通过以下三种方式来启动服务：
+# 1、直接作为程序启动时的命令行参数来带入：java -jar yourproject.jar --jasypt.encryptor.password=CodeSheep
+# 2、直接作为程序启动时的应用环境变量来带入：java -Djasypt.encryptor.password=CodeSheep -jar yourproject.jar
+# 3、作为系统环境变量的方式来带入：提前设置好系统环境变量JASYPT_ENCRYPTOR_PASSWORD = CodeSheep，配置文件：asypt.encryptor.password=${JASYPT_ENCRYPTOR_PASSWORD:}
+# 默认使用ENC()来标记加密字段，使用StringEncryptor.encrypt()方法对明文加密得到密文，用ENC()包裹即可实现对配置敏感信息的加密
+# 可以使用jasypt.encryptor.property.prefix、jasypt.encryptor.property.suffix来自定义标记方法，比如CodeSheep()
+# 可以自定义加密规则，比如通过CodeSheepEncryptorCfg来配置加密器，另外需配置jasypt.encryptor.bean来指定加密器bean名称
+password: ENC(+eYfKcSMMdBOgh9ddtVewAQKHP6nmm3TZywK0SPeUQllag0osOWlvig9DBnwh016)
+name: lizhen

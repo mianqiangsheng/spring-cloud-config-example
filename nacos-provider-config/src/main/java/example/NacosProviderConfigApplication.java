@@ -30,7 +30,7 @@ public class NacosProviderConfigApplication {
         applicationContext = SpringApplication.run(NacosProviderConfigApplication.class, args);
 
         Environment environment = applicationContext.getBean(Environment.class);
-        StringEncryptor codeSheepEncryptorBean = applicationContext.getBean(StringEncryptor.class);
+        StringEncryptor codeSheepEncryptorBean = applicationContext.getBean("codeSheepEncryptorBean",StringEncryptor.class);
 
         // 首先获取配置文件里的原始明文信息
         String password = environment.getProperty("password");

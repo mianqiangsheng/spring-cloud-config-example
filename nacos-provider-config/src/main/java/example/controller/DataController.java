@@ -10,9 +10,9 @@ import example.mapper.GfComradeMapper;
 import example.mapper.GfTestMapper;
 import example.service.DataService;
 import example.service.GfComradeService;
+import example.service.ImportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Wrapper;
 import java.util.List;
@@ -31,6 +31,9 @@ public class DataController {
 
     @Autowired
     private GfTestMapper gfTestMapper;
+
+    @Autowired
+    private ImportService<GfTest> importService;
 
     @GetMapping(value = "/select/lizhen")
     public List lizhen() {
@@ -89,5 +92,11 @@ public class DataController {
     public IPage<GfTest> metGfTestPage2() {
         Page<GfTest> gfTestPage = gfTestMapper.selectPage(new Page<>(1, 10), Wrappers.emptyWrapper());
         return gfTestPage;
+    }
+
+    @RequestMapping(value = "/import/data")
+    public Integer importData(@RequestBody List<GfTest> list) {
+        Integer integer = importService.importData(list, gfTestMapper);
+        return integer;
     }
 }

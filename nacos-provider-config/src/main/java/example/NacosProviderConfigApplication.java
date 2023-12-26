@@ -70,6 +70,9 @@ public class NacosProviderConfigApplication {
          * 当nacos服务器刷新配置时，调用NacosContextRefresher的innerReceive方法发布RefreshEvent事件，然后由RefreshEventListener处理该事件
          * 最终调用ContextRefresher的refreshEnvironment方法，更新Environment，并且会发布一个EnvironmentChangeEvent事件
          *
+         * 可以配置自己的其他监听器发布另外的事件，并对由此引发的事件做出反应，比如刷新bean等
+         * 案例：org.springframework.cloud.gateway.route：RouteRefreshListener
+         *
          * When configurations are refreshed dynamically, they will be updated in the Enviroment, therefore here we retrieve configurations from Environment every other 3 seconds.
          * You can disable automatic refresh with this setting`spring.cloud.nacos.config.refresh-enabled=false`.
          */

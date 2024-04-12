@@ -1,0 +1,26 @@
+server:
+  port: 8905
+  servlet:
+    context-path: /service4
+# enable all actuator endpoints for testing (review this for real deployments)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  #  config:
+#    use-legacy-processing: true
+  application:
+    name: service4
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: service4 # 默认使用spring.application.name
+        network-interface: 10.1.40.31 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 192.168.71.1 # Highest priority
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
+

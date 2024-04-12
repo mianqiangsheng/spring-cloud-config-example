@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+        name: gateway-test
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
+        group: DEFAULT_GROUP
+        refresh-enabled: true

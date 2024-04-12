@@ -1,0 +1,45 @@
+server:
+  port: 8904
+# enable all actuator endpoints for testing (review this for real deployments)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      default-filters: #对所有请求添加过滤器。
+        - AddResponseHeader=X-Response-Default-Red, Default-Blue #增加响应头
+      routes:
+        - id: service4
+          uri: http://localhost:8905 #基于url的路由，一般为http或者https协议
+          predicates:
+            - Path=/url/service4/**
+          filters:
+            - RewritePath=/api1, /addpath/api1 #改写路径 访问localhost:8904/service4/api1,请求会转发到http://localhost:8905/service4/addpath/api1
+            - SetRequestHeader=X-Request-Red, Blue #增加请求头
+        - id: service5
+          uri: lb://service5 #基于服务发现，和注册中心相结合进行路由
+          predicates:
+            - Path=/service5/**
+          filters:
+        - id: service4
+          uri: lb://service4 #基于服务发现，和注册中心相结合进行路由
+          predicates:
+            - Path=/service4/**
+          filters:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: gateway # 默认使用spring.application.name
+        network-interface: 10.1.40.31 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 192.168.71.1 # Highest priority
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
+    sentinel:
+      transport:
+        dashboard: localhost:8720 #配置sentinel dashboard地址
+
+

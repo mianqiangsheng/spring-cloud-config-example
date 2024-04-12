@@ -19,6 +19,7 @@
         <module>client</module>
         <module>nacos-provider-config</module>
         <module>nacos-consumer</module>
+        <module>gateway-test</module>
     </modules>
 
 </project>

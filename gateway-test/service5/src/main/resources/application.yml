@@ -1,0 +1,31 @@
+server:
+  port: 8906
+  servlet:
+    context-path: /service5
+# enable all actuator endpoints for testing (review this for real deployments)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+#  main:
+#    allow-bean-definition-overriding: true
+  #  config:
+#    use-legacy-processing: true
+  application:
+    name: service5
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        service: service5 # 默认使用spring.application.name
+        network-interface: 10.1.40.31 # If the IP address is not specified, the registered IP address is the IP address of the network card.If this is not specified either, the IP address of the first network card will be used by default.
+        ip: 192.168.71.1 # Highest priority
+        namespace: ac43df99-720a-49d4-9896-a490fd7afbc2
+    sentinel:
+      transport:
+        dashboard: localhost:8720 #配置sentinel dashboard地址
+        port: 8724
+        client-ip: localhost
+      eager: true #是否较早连接sentinel dashboard发送心跳，否则当服务有第一个http请求后再执行InitExecutor.doInit()——实现方式：SentinelWebAutoConfiguration创建了SentinelWebInterceptor对请求进行拦截
